@@ -1,9 +1,16 @@
 {
   "name": "typescript-vscode-extensions",
-  "private": true,
-  "version": "0.0.0",
-  "repository": "https://github.com/microsoft/TypeScript-VSCode-Extensions.git",
-  "author": "TypeScript Team + Contributors",
+  "private": "false",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+  },
+  "author": {
+    "name": "Nikola Hristov",
+    "email": "nikola@nikolahristov.tech",
+    "url": "https://nikolahristov.tech"
+  },
   "license": "MIT",
   "engines": {
     "yarn": "1.x"
@@ -12,5 +19,19 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+  "bugs": {
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+  },
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts"
+  },
+  "devDependencies": {
+    "typescript-esbuild": "0.3.1"
   }
 }
