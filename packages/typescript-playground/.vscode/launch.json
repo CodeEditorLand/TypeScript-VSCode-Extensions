@@ -14,7 +14,9 @@
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionDevelopmentKind=web"
 			],
-			"outFiles": ["${workspaceFolder}/dist/web/**/*.js"],
+			"outFiles": [
+				"${workspaceFolder}/dist/web/**/*.js"
+			],
 			"preLaunchTask": "npm: watch-web"
 		},
 		{
@@ -27,7 +29,9 @@
 				"--extensionDevelopmentKind=web",
 				"--extensionTestsPath=${workspaceFolder}/dist/web/test/suite/index"
 			],
-			"outFiles": ["${workspaceFolder}/dist/web/**/*.js"],
+			"outFiles": [
+				"${workspaceFolder}/dist/web/**/*.js"
+			],
 			"preLaunchTask": "npm: watch-web"
 		}
 	]
