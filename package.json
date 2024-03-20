@@ -1,16 +1,34 @@
 {
-  "name": "typescript-vscode-extensions",
-  "private": true,
-  "version": "0.0.0",
-  "repository": "https://github.com/microsoft/TypeScript-VSCode-Extensions.git",
-  "author": "TypeScript Team + Contributors",
-  "license": "MIT",
-  "engines": {
-    "yarn": "1.x"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  }
+	"name": "typescript-vscode-extensions",
+	"version": "0.0.1",
+	"private": false,
+	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
+	"bugs": {
+		"url": "https://github.com/CodeEditorLand/Foundation/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+		"name": "Playform",
+		"email": "Hello@Playform.Cloud",
+		"url": "https://playform.cloud"
+	},
+	"type": "module",
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
+	},
+	"scripts": {
+		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'"
+	},
+	"devDependencies": {
+		"typescript-esbuild": "latest"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
