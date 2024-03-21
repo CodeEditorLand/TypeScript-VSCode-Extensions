@@ -1,32 +1,20 @@
 {
-	"name": "playground",
-	"displayName": "TypeScript Playground",
-	"version": "0.0.1",
-	"private": false,
-	"description": "-",
-	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
-	"bugs": {
-		"url": "https://github.com/CodeEditorLand/Foundation/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "Playform",
-		"email": "Hello@Playform.Cloud",
-		"url": "https://playform.cloud"
-	},
-	"type": "module",
+	"_enabledApiProposals": [
+		"contribViewsRemote"
+	],
+	"activationEvents": [
+		"onCommand:vscode-typescript-playground.startNewPlayground",
+		"onView:vscode-typescript-playground.playground",
+		"onFileSystem:playfs",
+		"onUri",
+		"*"
+	],
 	"browser": "./dist/web/extension.js",
-	"scripts": {
-		"compile-web": "webpack",
-		"package-web": "webpack --mode production --devtool hidden-source-map",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
-		"vscode:prepublish": "yarn run package-web",
-		"watch-web": "webpack --watch"
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": true
 	},
 	"contributes": {
 		"commands": [
@@ -384,13 +372,6 @@
 			}
 		}
 	},
-	"activationEvents": [
-		"onCommand:vscode-typescript-playground.startNewPlayground",
-		"onView:vscode-typescript-playground.playground",
-		"onFileSystem:playfs",
-		"onUri",
-		"*"
-	],
 	"dependencies": {
 		"@typescript/ata": "^0.9.3",
 		"@vscode/webview-ui-toolkit": "^0.8.4",
@@ -402,6 +383,7 @@
 		"vsce": "^2.5.1",
 		"webworker-promise": "^0.4.4"
 	},
+	"description": "-",
 	"devDependencies": {
 		"@types/mocha": "^9.0.0",
 		"@types/vscode": "^1.61.0",
@@ -416,20 +398,19 @@
 		"webpack": "^5.52.1",
 		"webpack-cli": "^4.8.0"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"preview": true,
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		},
-		"virtualWorkspaces": true
-	},
+	"displayName": "TypeScript Playground",
 	"extensionKind": [
 		"ui"
 	],
-	"_enabledApiProposals": [
-		"contribViewsRemote"
-	]
+	"name": "playground",
+	"preview": true,
+	"scripts": {
+		"compile-web": "webpack",
+		"package-web": "webpack --mode production --devtool hidden-source-map",
+		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
+		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+		"vscode:prepublish": "yarn run package-web",
+		"watch-web": "webpack --watch"
+	},
+	"type": "module"
 }
