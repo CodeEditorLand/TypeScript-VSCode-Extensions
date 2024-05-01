@@ -1,39 +1,39 @@
 {
-	"name": "typescript-vscode-extensions",
-	"version": "0.0.1",
-	"private": false,
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/TypeScriptLandExtensions.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
 	"author": {
-		"name": "🌆 — Land —",
 		"email": "Land@PlayForm.Cloud",
+		"name": "🌆 — Land —",
 		"url": "HTTPS://Land.PlayForm.Cloud"
 	},
-	"type": "module",
-	"workspaces": {
-		"packages": [
-			"packages/*"
-		]
-	},
-	"scripts": {
-		"Document": "Document 'Source/**/*.ts'",
-		"prepublishOnly": "Build 'Source/**/*.ts'"
+	"bugs": {
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions/issues"
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
 		"@playform/document": "0.0.6"
 	},
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions#readme",
+	"keywords": [
+		"land"
+	],
+	"license": "SEE LICENSE IN LICENSE",
+	"name": "typescript-vscode-extensions",
+	"private": false,
 	"publishConfig": {
 		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/TypeScriptLandExtensions.git"
+	},
+	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
+		"prepublishOnly": "Build 'Source/**/*.ts'"
+	},
+	"type": "module",
+	"version": "0.0.1",
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
 	}
 }

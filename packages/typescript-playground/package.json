@@ -1,35 +1,28 @@
 {
-	"name": "playground",
-	"displayName": "TypeScript Playground",
-	"version": "0.0.1",
-	"private": false,
-	"description": "-",
-	"keywords": [
-		"land"
+	"_enabledApiProposals": [
+		"contribViewsRemote"
 	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions#readme",
+	"activationEvents": [
+		"onCommand:vscode-typescript-playground.startNewPlayground",
+		"onView:vscode-typescript-playground.playground",
+		"onFileSystem:playfs",
+		"onUri",
+		"*"
+	],
+	"author": {
+		"email": "Land@PlayForm.Cloud",
+		"name": "🌆 — Land —",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"browser": "./dist/web/extension.js",
 	"bugs": {
 		"url": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions/issues"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/TypeScriptLandExtensions.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🌆 — Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"type": "module",
-	"browser": "./dist/web/extension.js",
-	"scripts": {
-		"Document": "Document 'Source/**/*.ts'",
-		"compile-web": "webpack",
-		"package-web": "webpack --mode production --devtool hidden-source-map",
-		"prepublishOnly": "Build 'Source/**/*.ts'",
-		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
-		"watch-web": "webpack --watch"
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": true
 	},
 	"contributes": {
 		"commands": [
@@ -387,13 +380,6 @@
 			}
 		}
 	},
-	"activationEvents": [
-		"onCommand:vscode-typescript-playground.startNewPlayground",
-		"onView:vscode-typescript-playground.playground",
-		"onFileSystem:playfs",
-		"onUri",
-		"*"
-	],
 	"dependencies": {
 		"@typescript/ata": "0.9.4",
 		"fetch-progress": "1.3.0",
@@ -402,6 +388,7 @@
 		"ts-debounce": "4.0.0",
 		"webworker-promise": "0.5.1"
 	},
+	"description": "-",
 	"devDependencies": {
 		"@playform/build": "0.0.7",
 		"@playform/document": "0.0.6",
@@ -409,20 +396,33 @@
 		"process": "0.11.10",
 		"ts-loader": "9.5.1"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"preview": true,
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		},
-		"virtualWorkspaces": true
-	},
+	"displayName": "TypeScript Playground",
 	"extensionKind": [
 		"ui"
 	],
-	"_enabledApiProposals": [
-		"contribViewsRemote"
-	]
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/TypeScriptLandExtensions#readme",
+	"keywords": [
+		"land"
+	],
+	"license": "SEE LICENSE IN LICENSE",
+	"name": "playground",
+	"preview": true,
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/TypeScriptLandExtensions.git"
+	},
+	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
+		"compile-web": "webpack",
+		"package-web": "webpack --mode production --devtool hidden-source-map",
+		"prepublishOnly": "Build 'Source/**/*.ts'",
+		"run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+		"watch-web": "webpack --watch"
+	},
+	"type": "module",
+	"version": "0.0.1"
 }
