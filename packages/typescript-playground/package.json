@@ -392,10 +392,6 @@
 		},
 		"virtualWorkspaces": true
 	},
-	"extensionKind": [
-		"ui"
-	],
-	"_enabledApiProposals": [
-		"contribViewsRemote"
-	]
+	"extensionKind": ["ui"],
+	"_enabledApiProposals": ["contribViewsRemote"]
 }
