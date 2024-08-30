@@ -1,8 +1,0 @@
-{
-	"name": "typescript-vscode-extensions",
-	"workspaces": {
-		"packages": [
-			"packages/*"
-		]
-	}
-}
