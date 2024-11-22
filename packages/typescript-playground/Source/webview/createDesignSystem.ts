@@ -21,6 +21,7 @@ const el = (str: string, elementType: string, container: Element) => {
 	const el = document.createElement(elementType);
 	el.innerHTML = str;
 	container.appendChild(el);
+
 	return el;
 };
 
@@ -34,7 +35,9 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				container.removeChild(container.firstChild);
 			}
 		};
+
 		let decorations: string[] = [];
+
 		let decorationLock = false;
 
 		const clearDeltaDecorators = (force?: true) => {
@@ -80,6 +83,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				return;
 			}
 			const localize = i || (window as any).i;
+
 			const li = document.createElement("li");
 			li.id = "restart-required";
 
@@ -100,11 +104,14 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			const invertedLogic = setting.emptyImpliesEnabled;
 
 			const li = document.createElement("li");
+
 			const label = document.createElement("label");
+
 			const split = setting.oneline ? "" : "<br/>";
 			label.innerHTML = `<span>${setting.display}</span>${split}${setting.blurb}`;
 
 			const key = setting.flag;
+
 			const input = document.createElement("input");
 			input.type = "checkbox";
 			input.id = key;
@@ -141,6 +148,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			li.appendChild(input);
 			li.appendChild(label);
 			container.appendChild(li);
+
 			return li;
 		};
 
@@ -151,17 +159,20 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			const join = document.createElement("input");
 			join.type = "button";
 			join.value = settings.label;
+
 			if (settings.onclick) {
 				join.onclick = settings.onclick;
 			}
 
 			container.appendChild(join);
+
 			return join;
 		};
 
 		const code = (code: string) => {
 			const createCodePre = document.createElement("pre");
 			createCodePre.setAttribute("tabindex", "0");
+
 			const codeElement = document.createElement("code");
 
 			codeElement.innerHTML = code;
@@ -184,6 +195,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			noErrorsMessage.appendChild(messageDiv);
 
 			container.appendChild(noErrorsMessage);
+
 			return noErrorsMessage;
 		};
 
@@ -198,6 +210,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				// Move right
 				if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
 					tabs[tabFocus].setAttribute("tabindex", "-1");
+
 					if (e.key === "ArrowRight") {
 						tabFocus++;
 						// If we're at the end, go to the start
@@ -219,6 +232,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			});
 
 			container.appendChild(tabBar);
+
 			return tabBar;
 		};
 
@@ -226,6 +240,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			const element = document.createElement("button");
 			element.setAttribute("role", "tab");
 			element.textContent = text;
+
 			return element;
 		};
 
@@ -240,18 +255,26 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			diags.forEach((diag) => {
 				const li = document.createElement("li");
 				li.classList.add("diagnostic");
+
 				switch (diag.category) {
 					case 0:
 						li.classList.add("warning");
+
 						break;
+
 					case 1:
 						li.classList.add("error");
+
 						break;
+
 					case 2:
 						li.classList.add("suggestion");
+
 						break;
+
 					case 3:
 						li.classList.add("message");
+
 						break;
 				}
 
@@ -288,6 +311,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 						// ])
 
 						decorationLock = true;
+
 						setTimeout(() => {
 							decorationLock = false;
 							// sandbox.editor.deltaDecorations(decorations, [])
@@ -295,6 +319,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 					}
 				};
 			});
+
 			return errorUL;
 		};
 
@@ -348,12 +373,16 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				info: NodeInfo,
 			) => {
 				const li = document.createElement("li");
+
 				const typeofSpan = `ast-node-${typeof value}`;
+
 				let suffix = "";
+
 				if (key === "kind") {
 					suffix = ` (SyntaxKind.${info.name})`;
 				}
 				li.innerHTML = `${key}: <span class='${typeofSpan}'>${value}</span>${suffix}`;
+
 				return li;
 			};
 
@@ -366,6 +395,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				li.innerHTML = `${key}: `;
 
 				renderItem(li, value, depth + 1);
+
 				return li;
 			};
 
@@ -388,6 +418,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				const liEnd = document.createElement("li");
 				liEnd.innerHTML += "]";
 				childers.appendChild(liEnd);
+
 				return childers;
 			};
 
@@ -437,6 +468,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 					}
 
 					const value = (node as any)[field];
+
 					if (
 						typeof value === "object" &&
 						Array.isArray(value) &&
@@ -467,6 +499,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 			renderItem(div, node, 0);
 			container.append(div);
+
 			return div;
 		};
 
@@ -500,6 +533,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				textbox.value = config.value;
 			} else if (config.keepValueAcrossReloads) {
 				const storedQuery = localStorage.getItem(localStorageKey);
+
 				if (storedQuery) {
 					textbox.value = storedQuery;
 				}
@@ -514,6 +548,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 			const textUpdate = (e: any) => {
 				const href = e.target.value.trim();
+
 				if (config.keepValueAcrossReloads) {
 					localStorage.setItem(localStorageKey, href);
 				}
@@ -530,19 +565,23 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			textbox.onkeydown = (evt: KeyboardEvent) => {
 				if (evt.key === "Enter" || evt.code === "Enter") {
 					config.onEnter(textbox.value, textbox);
+
 					return false;
 				}
 			};
 
 			form.appendChild(textbox);
 			container.appendChild(form);
+
 			return form;
 		};
 
 		const createSubDesignSystem = (): any => {
 			const div = document.createElement("div");
 			container.appendChild(div);
+
 			const ds = createDesignSystem(ts)(div);
+
 			return ds;
 		};
 

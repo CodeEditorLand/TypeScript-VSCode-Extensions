@@ -109,8 +109,11 @@ function getValidCompilerOptions(options: CompilerOptions) {
 	} = options;
 
 	const targetText = getScriptTargetText(targetOption);
+
 	const jsxText = getJsxEmitText(jsxOption);
+
 	const moduleKindText = getModuleKindText(moduleOption);
+
 	const moduleResolutionText = getModuleResolutionText(
 		moduleResolutionOption,
 	);

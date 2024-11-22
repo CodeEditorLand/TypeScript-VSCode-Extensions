@@ -58,6 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	const codeEditor = new OpenInVisualEditorCodeLensProvider();
+
 	const codelensD = vscode.languages.registerCodeLensProvider(
 		{ pattern: "/tsconfig.json" },
 		codeEditor,
@@ -67,6 +68,7 @@ export function activate(context: vscode.ExtensionContext) {
 		"vscode-typescript-playground.startNewPlayground",
 		() => {
 			const isDev = true;
+
 			if (isDev) {
 				return vscode.commands.executeCommand(
 					"vscode-typescript-playground.addPlaygroundToWorkspace",
@@ -99,6 +101,7 @@ export function activate(context: vscode.ExtensionContext) {
 				console.log(r);
 			});
 	};
+
 	const debouncedUpdateTSView = debounce(updateTSViews, 300);
 
 	// You can trigger via:
@@ -108,7 +111,9 @@ export function activate(context: vscode.ExtensionContext) {
 	const uriHandlerD = vscode.window.registerUriHandler({
 		handleUri(uri: vscode.Uri) {
 			console.log("Handle URI: ", uri);
+
 			const code = getInitialCode("Failed", uri);
+
 			if (code !== "Failed") {
 				memFs.writeFile(
 					vscode.Uri.parse(`playfs:/index.tsx`),

@@ -24,14 +24,17 @@ function getWorkspaceId(context: ExtensionContext): string {
 	const match = workspaceIdRegex.exec(context.storageUri.path);
 
 	let workspaceId;
+
 	if (!match?.groups?.id) {
 		workspaceId = context.storageUri.path;
+
 		const index = indexOfDifference(
 			context.globalStorageUri.path,
 			workspaceId,
 		);
 
 		const extensionSuffix = `/${context.extension.id}`;
+
 		if (workspaceId.endsWith(extensionSuffix)) {
 			workspaceId = workspaceId.slice(index, -extensionSuffix.length);
 		} else {
@@ -54,6 +57,7 @@ export function indexOfDifference(a: string, b: string): number {
 	}
 
 	let i = 0;
+
 	while (a[i] === b[i]) {
 		i++;
 	}

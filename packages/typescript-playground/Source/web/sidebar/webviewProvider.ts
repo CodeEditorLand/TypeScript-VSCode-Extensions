@@ -34,6 +34,7 @@ export class Sidebar implements WebviewViewProvider {
 
 		webviewView.webview.onDidReceiveMessage((data) => {
 			console.log("Received", { data });
+
 			switch (data.type) {
 				case "ts-ready": {
 					if (!this._view) return;
@@ -48,6 +49,7 @@ export class Sidebar implements WebviewViewProvider {
 					vscode.window.activeTextEditor?.insertSnippet(
 						new vscode.SnippetString(`#${data.value}`),
 					);
+
 					break;
 				}
 			}
@@ -60,16 +62,20 @@ export class Sidebar implements WebviewViewProvider {
 			"web",
 			"webview.js",
 		]);
+
 		const stylesUri = getUri(webview, extensionUri, [
 			"src",
 			"webview",
 			"style.css",
 		]);
+
 		const version = "4.5.2";
+
 		const ts =
 			"https://typescript.azureedge.net/cdn/" +
 			version +
 			"/typescript/lib/typescript.js";
+
 		return `
               <!DOCTYPE html>
               <html lang="en">

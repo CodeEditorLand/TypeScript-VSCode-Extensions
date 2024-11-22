@@ -5,7 +5,9 @@ import { createDesignSystem } from "./createDesignSystem";
 type VSCode = {
 	// postMessage<T extends Message = Message>(message: T): void;
 	postMessage(message: any): void;
+
 	getState(): any;
+
 	setState(state: any): void;
 };
 declare function acquireVsCodeApi(): VSCode;
@@ -26,6 +28,7 @@ function main() {
 	// Make a loop checking for when we have access to the typescript API in the global scope
 	const interval = setInterval(() => {
 		const ts = thisTS();
+
 		if (ts) {
 			vscode.postMessage({ msg: "ts-ready", version: ts.version });
 			clearInterval(interval);
@@ -42,17 +45,20 @@ function setVSCodeMessageListener() {
 		switch (command) {
 			case "updateTS":
 				const ts = thisTS();
+
 				if (!ts) {
 					return;
 				}
 
 				const ds = createDesignSystem(ts);
+
 				let result = ts.transpileModule(event.data.ts, {
 					compilerOptions: { module: ts.ModuleKind.CommonJS },
 				});
 
 				// js
 				const v1 = document.getElementById("view-1");
+
 				if (v1) {
 					const jsDS = ds(v1);
 					jsDS.clear();
@@ -61,6 +67,7 @@ function setVSCodeMessageListener() {
 
 				// dts
 				const v2 = document.getElementById("view-2");
+
 				if (v2) {
 					// v2.textContent = result.outputText
 					const jsDS = ds(v2);
@@ -70,6 +77,7 @@ function setVSCodeMessageListener() {
 
 				// diags
 				const v3 = document.getElementById("view-3");
+
 				if (v3) {
 					const errorDS = ds(v3);
 					errorDS.clear();
@@ -78,8 +86,10 @@ function setVSCodeMessageListener() {
 
 					if (event.data.diags.length) {
 						errorTab.innerHTML = `ERRORS <vscode-badge appearance="secondary">${event.data.diags.length}</vscode-badge>`;
+
 						const diags = event.data
 							.diags as import("vscode").Diagnostic[];
+
 						const tsDiags = diags.filter((d) => d.source === "ts");
 
 						const tsStyleDiags = tsDiags.map((d) => {
@@ -98,6 +108,7 @@ function setVSCodeMessageListener() {
 									// @ts-ignore
 									start: d.range[1].character,
 								};
+
 							return tsd;
 						});
 						errorDS.listDiags(tsStyleDiags);
@@ -115,12 +126,16 @@ const markerToDiagSeverity = (markerSev: string) => {
 	switch (markerSev) {
 		case "Error":
 			return 1;
+
 		case "Warning":
 			return 0;
+
 		case "Hint":
 			return 2;
+
 		case "Information":
 			return 3;
+
 		default:
 			return 3;
 	}

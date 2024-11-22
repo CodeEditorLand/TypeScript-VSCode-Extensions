@@ -11,6 +11,7 @@ export function getDefaultSandboxCompilerOptions(
 	existingConfig: CompilerOptions,
 ) {
 	const useJavaScript = isJS;
+
 	const settings: CompilerOptions = {
 		strict: true,
 
@@ -75,6 +76,7 @@ export const getCompilerOptionsFromParams = (
 		// First use the defaults object to drop compiler flags which are already set to the default
 		if (playgroundDefaults[key]) {
 			let toSet = undefined;
+
 			if (val === "true" && playgroundDefaults[key] !== true) {
 				toSet = true;
 			} else if (val === "false" && playgroundDefaults[key] !== false) {
@@ -95,8 +97,10 @@ export const getCompilerOptionsFromParams = (
 			const flagExists = ts.optionDeclarations.find(
 				(opt) => opt.name === key,
 			);
+
 			if (flagExists) {
 				let realValue: number | boolean = true;
+
 				if (val === "false") {
 					realValue = false;
 				}
@@ -117,6 +121,7 @@ export const createURLQueryWithCompilerOptions = (
 		code: string;
 		originalParams: string;
 		currentCompilerOptions: CompilerOptions;
+
 		defaultCompilerOptions: CompilerOptions;
 	},
 	paramOverrides?: any,
@@ -124,7 +129,9 @@ export const createURLQueryWithCompilerOptions = (
 	const initialOptions = new URLSearchParams(input.originalParams);
 
 	const compilerOptions = input.currentCompilerOptions;
+
 	const compilerDefaults = input.defaultCompilerOptions;
+
 	const diff = Object.entries(compilerOptions).reduce((acc, [key, value]) => {
 		if (value !== compilerDefaults[key]) {
 			// @ts-ignore
@@ -202,6 +209,7 @@ export const createURLQueryWithCompilerOptions = (
 
 		initialOptions.forEach((value, key) => {
 			const skip = ["ssl", "ssc", "pln", "pc"];
+
 			if (skip.includes(key)) {
 				return;
 			}
