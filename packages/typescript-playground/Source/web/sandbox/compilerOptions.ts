@@ -104,9 +104,11 @@ export const getCompilerOptionsFromParams = (
 				if (val === "false") {
 					realValue = false;
 				}
+
 				if (!isNaN(parseInt(val, 10))) {
 					realValue = parseInt(val, 10);
 				}
+
 				returnedOptions[key] = realValue;
 			}
 		}
@@ -119,7 +121,9 @@ export const getCompilerOptionsFromParams = (
 export const createURLQueryWithCompilerOptions = (
 	input: {
 		code: string;
+
 		originalParams: string;
+
 		currentCompilerOptions: CompilerOptions;
 
 		defaultCompilerOptions: CompilerOptions;
@@ -213,9 +217,11 @@ export const createURLQueryWithCompilerOptions = (
 			if (skip.includes(key)) {
 				return;
 			}
+
 			if (queryString.includes(key)) {
 				return;
 			}
+
 			if (compilerOptions[key]) {
 				return;
 			}

@@ -7,6 +7,7 @@ import { getUri } from "./getUri";
 export class Sidebar implements WebviewViewProvider {
 	public static readonly viewType =
 		"vscode-typescript-playground.sidebarView";
+
 	private _view?: vscode.WebviewView;
 
 	constructor(
@@ -38,6 +39,7 @@ export class Sidebar implements WebviewViewProvider {
 			switch (data.type) {
 				case "ts-ready": {
 					if (!this._view) return;
+
 					this._view.webview.postMessage({
 						command: "updateTS",
 						ts: this.vfs.readFile(vscode.Uri.parse("/index.tsx")),
@@ -45,6 +47,7 @@ export class Sidebar implements WebviewViewProvider {
 
 					break;
 				}
+
 				case "colorSelected": {
 					vscode.window.activeTextEditor?.insertSnippet(
 						new vscode.SnippetString(`#${data.value}`),
@@ -103,6 +106,7 @@ export class Sidebar implements WebviewViewProvider {
 	updateTS(ts: string, diags: vscode.Diagnostic[]) {
 		if (this._view) {
 			this._view.show?.(true);
+
 			this._view.webview.postMessage({ command: "updateTS", ts, diags });
 		}
 	}

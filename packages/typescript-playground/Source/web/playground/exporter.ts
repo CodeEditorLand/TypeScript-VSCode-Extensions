@@ -68,6 +68,7 @@ function getJsxEmitText(option: any) {
 	if (option === JsxEmit.None) {
 		return undefined;
 	}
+
 	return JsxEmit[option].toLowerCase();
 }
 
@@ -75,6 +76,7 @@ function getModuleKindText(option: any) {
 	if (option === ModuleKind.None) {
 		return undefined;
 	}
+
 	return ModuleKind[option];
 }
 

@@ -28,6 +28,7 @@ export const getInitialCode = (fallback: string, location: vscode.Uri) => {
 				decodeURIComponent(code),
 			);
 		}
+
 		return userCode;
 	}
 

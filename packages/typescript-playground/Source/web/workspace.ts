@@ -5,7 +5,9 @@ export let isWeb: boolean;
 
 export function configureForEnv(context: ExtensionContext): string {
 	const workspaceId = getWorkspaceId(context);
+
 	isWeb = env.uiKind === UIKind.Web;
+
 	console.warn(
 		// @ts-ignore
 		`Running on the ${isWeb ? "web" : "desktop"} workspaceId=${workspaceId}; storageUri=${context.globalStorageUri.toString(true)}`,
@@ -48,6 +50,7 @@ function getWorkspaceId(context: ExtensionContext): string {
 	if (/-[0-9]$/.test(workspaceId)) {
 		return workspaceId.slice(0, -2);
 	}
+
 	return workspaceId;
 }
 
@@ -61,5 +64,6 @@ export function indexOfDifference(a: string, b: string): number {
 	while (a[i] === b[i]) {
 		i++;
 	}
+
 	return i;
 }

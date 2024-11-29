@@ -4,6 +4,7 @@ import { createDesignSystem } from "./createDesignSystem";
 
 type VSCode = {
 	// postMessage<T extends Message = Message>(message: T): void;
+
 	postMessage(message: any): void;
 
 	getState(): any;
@@ -31,6 +32,7 @@ function main() {
 
 		if (ts) {
 			vscode.postMessage({ msg: "ts-ready", version: ts.version });
+
 			clearInterval(interval);
 		}
 	}, 300);
@@ -40,6 +42,7 @@ function setVSCodeMessageListener() {
 	// @ts-ignore
 	window.addEventListener("message", (event) => {
 		const command = event.data.command;
+
 		console.log(event.data);
 
 		switch (command) {
@@ -61,7 +64,9 @@ function setVSCodeMessageListener() {
 
 				if (v1) {
 					const jsDS = ds(v1);
+
 					jsDS.clear();
+
 					jsDS.code(result.outputText);
 				}
 
@@ -71,7 +76,9 @@ function setVSCodeMessageListener() {
 				if (v2) {
 					// v2.textContent = result.outputText
 					const jsDS = ds(v2);
+
 					jsDS.clear();
+
 					jsDS.code(".d.ts not supported right now, sorry");
 				}
 
@@ -80,6 +87,7 @@ function setVSCodeMessageListener() {
 
 				if (v3) {
 					const errorDS = ds(v3);
+
 					errorDS.clear();
 
 					const errorTab = document.getElementById("tab-3")!;
@@ -111,6 +119,7 @@ function setVSCodeMessageListener() {
 
 							return tsd;
 						});
+
 						errorDS.listDiags(tsStyleDiags);
 					} else {
 						errorTab.innerHTML = "ERRORS";

@@ -11,9 +11,11 @@ import { configureForEnv } from "./workspace";
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log("started ts playground");
+
 	configureForEnv(context);
 
 	const memFs = new VFS();
+
 	context.subscriptions.push(
 		vscode.workspace.registerFileSystemProvider("playfs", memFs, {
 			isCaseSensitive: true,
@@ -29,6 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const compilerDefaults = getTSConfigForConfig(
 		getDefaultSandboxCompilerOptions(false, {}),
 	);
+
 	memFs.writeFile(
 		vscode.Uri.parse(`playfs:/tsconfig.json`),
 		toBuffer(compilerDefaults),
@@ -90,6 +93,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const updateTSViews = (doc: vscode.TextDocument) => {
 		const diags = vscode.languages.getDiagnostics(doc.uri);
+
 		sidebar.updateTS(doc.getText(), diags);
 
 		vscode.commands
@@ -98,6 +102,7 @@ export function activate(context: vscode.ExtensionContext) {
 			})
 			.then((r) => {
 				console.log("Sent");
+
 				console.log(r);
 			});
 	};

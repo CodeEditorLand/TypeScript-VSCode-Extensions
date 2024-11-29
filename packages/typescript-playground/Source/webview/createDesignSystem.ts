@@ -3,23 +3,31 @@ import type { DiagnosticRelatedInformation, Node } from "typescript";
 
 export type LocalStorageOption = {
 	blurb: string;
+
 	flag: string;
+
 	display: string;
 
 	emptyImpliesEnabled?: true;
+
 	oneline?: true;
+
 	requireRestart?: true;
+
 	onchange?: (newValue: boolean) => void;
 };
 
 export type OptionsListConfig = {
 	style: "separated" | "rows";
+
 	requireRestart?: true;
 };
 
 const el = (str: string, elementType: string, container: Element) => {
 	const el = document.createElement(elementType);
+
 	el.innerHTML = str;
+
 	container.appendChild(el);
 
 	return el;
@@ -46,6 +54,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			if (force) {
 				// sandbox.editor.deltaDecorations(decorations, [])
 				decorations = [];
+
 				decorationLock = false;
 			} else if (!decorationLock) {
 				// sandbox.editor.deltaDecorations(decorations, [])
@@ -82,19 +91,27 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			if (document.getElementById("restart-required")) {
 				return;
 			}
+
 			const localize = i || (window as any).i;
 
 			const li = document.createElement("li");
+
 			li.id = "restart-required";
 
 			const a = document.createElement("a");
+
 			a.style.color = "#c63131";
+
 			a.textContent = localize("play_sidebar_options_restart_required");
+
 			a.href = "#";
+
 			a.onclick = () => document.location.reload();
 
 			const nav = document.getElementsByClassName("navbar-right")[0];
+
 			li.appendChild(a);
+
 			nav.insertBefore(li, nav.firstChild);
 		};
 
@@ -108,12 +125,15 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			const label = document.createElement("label");
 
 			const split = setting.oneline ? "" : "<br/>";
+
 			label.innerHTML = `<span>${setting.display}</span>${split}${setting.blurb}`;
 
 			const key = setting.flag;
 
 			const input = document.createElement("input");
+
 			input.type = "checkbox";
+
 			input.id = key;
 
 			input.checked = invertedLogic
@@ -138,6 +158,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				if (setting.onchange) {
 					setting.onchange(!!localStorage.getItem(key));
 				}
+
 				if (setting.requireRestart) {
 					declareRestartRequired();
 				}
@@ -146,7 +167,9 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			label.htmlFor = input.id;
 
 			li.appendChild(input);
+
 			li.appendChild(label);
+
 			container.appendChild(li);
 
 			return li;
@@ -154,10 +177,13 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		const button = (settings: {
 			label: string;
+
 			onclick?: (ev: MouseEvent) => void;
 		}) => {
 			const join = document.createElement("input");
+
 			join.type = "button";
+
 			join.value = settings.label;
 
 			if (settings.onclick) {
@@ -171,6 +197,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		const code = (code: string) => {
 			const createCodePre = document.createElement("pre");
+
 			createCodePre.setAttribute("tabindex", "0");
 
 			const codeElement = document.createElement("code");
@@ -178,6 +205,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			codeElement.innerHTML = code;
 
 			createCodePre.appendChild(codeElement);
+
 			container.appendChild(createCodePre);
 
 			return codeElement;
@@ -187,11 +215,15 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			clear();
 
 			const noErrorsMessage = document.createElement("div");
+
 			noErrorsMessage.id = "empty-message-container";
 
 			const messageDiv = document.createElement("div");
+
 			messageDiv.textContent = message;
+
 			messageDiv.classList.add("empty-plugin-message");
+
 			noErrorsMessage.appendChild(messageDiv);
 
 			container.appendChild(noErrorsMessage);
@@ -201,10 +233,12 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		const createTabBar = () => {
 			const tabBar = document.createElement("div");
+
 			tabBar.classList.add("playground-plugin-tabview");
 
 			/** Support left/right in the tab bar for accessibility */
 			let tabFocus = 0;
+
 			tabBar.addEventListener("keydown", (e) => {
 				const tabs = tabBar.querySelectorAll('[role="tab"]');
 				// Move right
@@ -238,7 +272,9 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		const createTabButton = (text: string) => {
 			const element = document.createElement("button");
+
 			element.setAttribute("role", "tab");
+
 			element.textContent = text;
 
 			return element;
@@ -246,14 +282,18 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		const listDiags = (diags: DiagnosticRelatedInformation[]) => {
 			const errorUL = document.createElement("ul");
+
 			errorUL.className = "compiler-diagnostics";
+
 			errorUL.onmouseleave = (ev) => {
 				clearDeltaDecorators();
 			};
+
 			container.appendChild(errorUL);
 
 			diags.forEach((diag) => {
 				const li = document.createElement("li");
+
 				li.classList.add("diagnostic");
 
 				switch (diag.category) {
@@ -287,6 +327,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 						4,
 					);
 				}
+
 				errorUL.appendChild(li);
 
 				if (diag.start && diag.length) {
@@ -328,6 +369,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			style: OptionsListConfig,
 		) => {
 			const ol = document.createElement("ol");
+
 			ol.className =
 				style.style === "separated"
 					? "playground-options"
@@ -337,11 +379,13 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				if (style.style === "rows") {
 					option.oneline = true;
 				}
+
 				if (style.requireRestart) {
 					option.requireRestart = true;
 				}
 
 				const settingButton = localStorageOption(option);
+
 				ol.appendChild(settingButton);
 			});
 
@@ -355,6 +399,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			const autoOpen = !settings || !settings.closedByDefault;
 
 			const div = document.createElement("div");
+
 			div.className = "ast";
 
 			const infoForNode = (node: Node) => {
@@ -381,6 +426,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				if (key === "kind") {
 					suffix = ` (SyntaxKind.${info.name})`;
 				}
+
 				li.innerHTML = `${key}: <span class='${typeofSpan}'>${value}</span>${suffix}`;
 
 				return li;
@@ -392,6 +438,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				depth: number,
 			) => {
 				const li = document.createElement("li");
+
 				li.innerHTML = `${key}: `;
 
 				renderItem(li, value, depth + 1);
@@ -405,10 +452,13 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				depth: number,
 			) => {
 				const childers = document.createElement("div");
+
 				childers.classList.add("ast-children");
 
 				const li = document.createElement("li");
+
 				li.innerHTML = `${key}: [<br/>`;
+
 				childers.appendChild(li);
 
 				nodes.forEach((node) => {
@@ -416,7 +466,9 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				});
 
 				const liEnd = document.createElement("li");
+
 				liEnd.innerHTML += "]";
+
 				childers.appendChild(liEnd);
 
 				return childers;
@@ -428,8 +480,11 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				depth: number,
 			) => {
 				const itemDiv = document.createElement("div");
+
 				parentElement.appendChild(itemDiv);
+
 				itemDiv.className = "ast-tree-start";
+
 				itemDiv.attributes.setNamedItem;
 				// @ts-expect-error
 				itemDiv.dataset.pos = node.pos;
@@ -445,10 +500,15 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				const info = infoForNode(node);
 
 				const a = document.createElement("a");
+
 				a.classList.add("node-name");
+
 				a.textContent = info.name;
+
 				itemDiv.appendChild(a);
+
 				a.onclick = (_) => a.parentElement!.classList.toggle("open");
+
 				addEditorHoverToElement(
 					a,
 					{ start: node.pos, end: node.end },
@@ -456,13 +516,16 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				);
 
 				const properties = document.createElement("ul");
+
 				properties.className = "ast-tree";
+
 				itemDiv.appendChild(properties);
 
 				Object.keys(node).forEach((field) => {
 					if (typeof field === "function") {
 						return;
 					}
+
 					if (field === "parent" || field === "flowNode") {
 						return;
 					}
@@ -498,6 +561,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			};
 
 			renderItem(div, node, 0);
+
 			container.append(div);
 
 			return div;
@@ -505,13 +569,17 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		type TextInputConfig = {
 			id: string;
+
 			placeholder: string;
 
 			onChanged?: (text: string, input: HTMLInputElement) => void;
+
 			onEnter: (text: string, input: HTMLInputElement) => void;
 
 			value?: string;
+
 			keepValueAcrossReloads?: true;
+
 			isEnabled?: (input: HTMLInputElement) => boolean;
 		};
 
@@ -519,10 +587,15 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			const form = document.createElement("form");
 
 			const textbox = document.createElement("input");
+
 			textbox.id = config.id;
+
 			textbox.placeholder = config.placeholder;
+
 			textbox.autocomplete = "off";
+
 			textbox.autocapitalize = "off";
+
 			textbox.spellcheck = false;
 			// @ts-ignore
 			textbox.autocorrect = "off";
@@ -541,6 +614,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 			if (config.isEnabled) {
 				const enabled = config.isEnabled(textbox);
+
 				textbox.classList.add(enabled ? "good" : "bad");
 			} else {
 				textbox.classList.add("good");
@@ -552,13 +626,16 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 				if (config.keepValueAcrossReloads) {
 					localStorage.setItem(localStorageKey, href);
 				}
+
 				if (config.onChanged) {
 					config.onChanged(e.target.value, textbox);
 				}
 			};
 
 			textbox.style.width = "90%";
+
 			textbox.style.height = "2rem";
+
 			textbox.addEventListener("input", textUpdate);
 
 			// Suppress the enter key
@@ -571,6 +648,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 			};
 
 			form.appendChild(textbox);
+
 			container.appendChild(form);
 
 			return form;
@@ -578,6 +656,7 @@ export const createDesignSystem = (ts: typeof import("typescript")) => {
 
 		const createSubDesignSystem = (): any => {
 			const div = document.createElement("div");
+
 			container.appendChild(div);
 
 			const ds = createDesignSystem(ts)(div);

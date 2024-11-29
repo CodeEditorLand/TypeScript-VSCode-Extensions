@@ -29,6 +29,7 @@ export const getKnownTypeScriptVersions = async () => {
 
 	// Get the highest maj/min ignoring patch versions
 	const latestMajMin = new Map();
+
 	versions.forEach((v: string) => {
 		const majMin = v.split(".")[0] + "." + v.split(".")[1];
 
