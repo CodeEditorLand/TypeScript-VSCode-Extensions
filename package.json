@@ -1,5 +1,5 @@
 {
-	"name": "typescript-@codeeditorland/extensions",
+	"name": "typescript-vscode-extensions",
 	"workspaces": {
 		"packages": [
 			"packages/*"
